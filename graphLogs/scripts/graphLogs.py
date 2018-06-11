@@ -151,6 +151,29 @@ def plotTime(timeDict, nJobsDict):
                ncol=len(partitionNames))
     plt.show()
 
+def plotAvg(timeDict, nJobsDict):
+    partitionNames = ["RM", "RM-shared", "GPU", "GPU-shared", "LM"]
+    dates = sorted(timeDict.keys())
+    fig, axs = plt.subplots(5, sharex=True)
+    lines = []
+    colors = ["blue", "green", "red", "cyan", "magenta"]
+    for i in range(len(partitionNames)):
+        partition = partitionNames[i]
+        times = np.array([timeDict[day].get(partition, 0) for day in dates])
+        jobs = np.array([nJobsDict[day].get(partition, 1) for day in dates])
+        avgTimes = times/jobs
+        axs[i].plot(dates, avgTimes, color=colors[i], label=partition)
+        axs[i].legend(loc="upper center")
+
+    #add a big axes, hide frame
+    fig.add_subplot(111, frameon=False)
+    # hide tick and tick label of the big axes
+    plt.tick_params(labelcolor='none', top='off', bottom='off', left='off', right='off')
+    plt.grid(False)
+    plt.ylabel("Avg Queue Wait Time (days)")
+
+    plt.show()
+
 #########
 #Tests
 #########
@@ -167,6 +190,7 @@ if __name__ == "__main__":
     timeDict= mapTDToTime(tdDict)
     #outputData(timeDict, outFile)
     end = time.time()
-    print(end - start)
-    plotTime(timeDict, nJobsDict)
+    print "Time Elapsed", (end - start)
+    #plotTime(timeDict, nJobsDict)
+    plotAvg(timeDict, nJobsDict)
     testAll()

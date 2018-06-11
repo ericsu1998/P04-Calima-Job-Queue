@@ -8,8 +8,8 @@ from sklearn import linear_model
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
-def processData(logs):
-    with open(logs, "r") as f:
+def processData(fileName):
+    with open(fileName, "r") as f:
         #Remove headers
         lines = f.readlines()[2:]
         #Remove leading and trailing whitespace
@@ -19,15 +19,13 @@ def processData(logs):
     return lines
 
 def cleanData(jobsData, numParams):
-    prevUID = None
+    prevData = None
     cleanedData = []
     for jobData in jobsData:
-        if (len(jobData) == numParams-1): #No UID
-            cleanedData.append([prevUID] + jobData)
-        elif (len(jobData) == numParams):
-            cleanedData.append(jobData)
-
-    return cleanedData
+        if (len(jobData) == numParams):
+            prevData = jobData[1]
+        cleanedData.append([prevData])
+    return np.array(cleanedData)
 
 def timeStr2Time(timeStr):
     #Input: Time, in "[DD-[HH:]]MM:SS]" format
@@ -98,15 +96,44 @@ def checkLength(jobsData, numParams):
     return True
 
 if __name__ == "__main__":
-    logs = sys.argv[1]
+    UIDFile = sys.argv[1]
+    timeLimitFile = sys.argv[2]
+    partitionFile = sys.argv[3]
+    elapsedFile = sys.argv[4]
 
+    numFields = 2 #JID, _
     numParams = 4 #UID, TimeLimit, Partition, Elapsed
     start = time.time()
-    jobsData = processData(logs)
+
+    UID = cleanData(processData(UIDFile), numFields)
+    n = len(UID)
+    timeLimit = cleanData(processData(timeLimitFile)[:n], numFields)
+    timeLimit = np.array([[timeStr2Time(timeStr[0])] for timeStr in timeLimit])
+    partition = cleanData(processData(partitionFile)[:n], numFields)
+    elapsed = cleanData(processData(elapsedFile)[:n], numFields).flatten()
+
+    print "UID"
+    print UID
+    print "timeLimit"
+    print timeLimit
+    print "partition"
+    print partition
+    print "elapsed"
+    print elapsed
+
+    print "Features"
+    features = np.hstack((UID, timeLimit, partition))
+    print features
+
+    end = time.time()
+    print end - start
+
+    """
     jobsData = np.array(cleanData(jobsData, numParams))
     partitionToIndex = getMapping(set(jobsData[:,2]))
 
     print(checkLength(jobsData, numParams))
+    print timeStr
     jobsData = formatData(jobsData, partitionToIndex)
     enc = OneHotEncoder(categorical_features=[0])
     enc.fit(jobsData)
@@ -132,4 +159,4 @@ if __name__ == "__main__":
 
     end = time.time()
     print (end - start)
-
+    """

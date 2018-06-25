@@ -1,0 +1,182 @@
+INFO: activate-binutils_linux-64.sh made the following environmental changes:
++ADDR2LINE=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-addr2line
++AR=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-ar
++AS=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-as
++CXXFILT=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-c++filt
++ELFEDIT=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-elfedit
++GPROF=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-gprof
++HOST=x86_64-conda_cos6-linux-gnu
++LD_GOLD=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-ld.gold
++LD=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-ld
++NM=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-nm
++OBJCOPY=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-objcopy
++OBJDUMP=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-objdump
++RANLIB=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-ranlib
++READELF=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-readelf
++SIZE=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-size
++STRINGS=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-strings
++STRIP=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-strip
+INFO: activate-gcc_linux-64.sh made the following environmental changes:
++CC=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-cc
++CFLAGS=-march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe
++CPPFLAGS=-DNDEBUG -D_FORTIFY_SOURCE=2 -O2
++CPP=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-cpp
++DEBUG_CFLAGS=-march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-all -fno-plt -Og -g -Wall -Wextra -fvar-tracking-assignments -pipe
++DEBUG_CPPFLAGS=-D_DEBUG -D_FORTIFY_SOURCE=2 -Og
++GCC_AR=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-gcc-ar
++GCC_NM=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-gcc-nm
++GCC=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-gcc
++GCC_RANLIB=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-gcc-ranlib
++LDFLAGS=-Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now
++_PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_x86_64_conda_cos6_linux_gnu
+INFO: activate-gxx_linux-64.sh made the following environmental changes:
++CXXFLAGS=-fvisibility-inlines-hidden -std=c++17 -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe
++CXX=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-c++
++DEBUG_CXXFLAGS=-fvisibility-inlines-hidden -std=c++17 -fmessage-length=0 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-all -fno-plt -Og -g -Wall -Wextra -fvar-tracking-assignments -pipe
++GXX=/opt/packages/AI/anaconda3-5.1.0_gpu/bin/x86_64-conda_cos6-linux-gnu-g++
+Getting features/labels...
+Getting features/labels took 10.96 seconds
+Getting features/labels finshed!
+
+Saving data...
+Saving data took 1.16 seconds
+Saving data finshed!
+
+Loading data...
+Loading data took 1.22 seconds
+Loading data finshed!
+
+Splitting to train/test...
+Splitting to train/test took 0.47 seconds
+Splitting to train/test finshed!
+
+Converting to Tensor...
+Converting to Tensor took 2.95 seconds
+Converting to Tensor finshed!
+
+Training model...
+N: 815896 D_in 2651
+H: 1000 D_out 1
+0 722.391535976163
+1 670674.3190550836
+2 742.734853430213
+3 739.7224141527686
+4 739.6963059256143
+5 739.6715064810865
+6 739.6474667028881
+7 739.6232993896285
+8 739.5960890918773
+9 739.5694693536233
+10 739.542426098733
+11 739.516649575924
+12 739.4983519251413
+13 739.4822935676012
+14 739.4690240300806
+15 739.457106599159
+16 739.444935407634
+17 739.4332288989993
+18 739.421310891159
+19 739.4106605939625
+20 739.3983195815365
+21 739.3882606587691
+22 739.3774408243736
+23 739.367677478533
+24 739.3572377409989
+25 739.3455721109041
+26 739.3359774148693
+27 739.3265093989259
+28 739.3157309296212
+29 739.3059244994591
+30 739.2952302700187
+31 739.2821264578226
+32 739.2671201940473
+33 739.2537199771132
+34 739.240361790399
+35 739.2272147317088
+36 739.2138560660237
+37 739.1996939258024
+38 739.1840941199966
+39 739.169762300921
+40 739.1563180410487
+41 739.1436768315075
+42 739.1319655514839
+43 739.1208037256156
+44 739.1101490982247
+45 739.1001285346932
+46 739.0893044822121
+47 739.0794104830685
+48 739.0694317856746
+49 739.0591992526715
+50 739.0498122589573
+51 739.0397063081252
+52 739.029896215302
+53 739.0193248488162
+54 739.0095144854361
+55 739.000718876511
+56 738.9912465652079
+57 738.981055237548
+58 738.9719632705966
+59 738.963251792672
+60 738.9544556330925
+61 735.6750301593768
+62 683885.4453780984
+63 770.3695947400831
+64 770.3545044328617
+65 770.3384807991874
+66 770.32310591076
+67 770.3085420790815
+68 770.2913409872916
+69 770.2742612212874
+70 770.2578707809482
+71 770.241479991827
+72 770.2253728617359
+73 770.2102797288543
+74 770.1949022812342
+75 770.1794028017109
+76 770.1650797069418
+77 770.1506346163717
+78 770.1349719367379
+79 770.1142772342297
+80 770.0922022719097
+81 770.0700860960644
+82 770.0471170649236
+83 770.02483726176
+84 770.0019074651699
+85 769.9778811758166
+86 769.9545441128327
+87 769.9371321737899
+88 769.9215057393837
+89 769.9061225240387
+90 769.890860771837
+91 769.8755175351403
+92 769.8604581351091
+93 769.8458449585866
+94 769.8293642100176
+95 769.8136543995566
+96 769.7835328844077
+97 769.7512179269352
+98 769.7261688418811
+99 769.7032301478279
+Training model took 1531.47 seconds
+Training model finshed!
+
+Predicting on test data...
+Predicting on test data took 1.83 seconds
+Predicting on test data finshed!
+
+Saving model and test data...
+Saving model and test data took 2.97 seconds
+Saving model and test data finshed!
+
+Loading model and test data...
+Loading model and test data took 0.42 seconds
+Loading model and test data finshed!
+
+Outputting predictions...
+Outputting predictions took 0.59 seconds
+Outputting predictions finshed!
+
+Outputting error...
+Outputting error took 0.10 seconds
+Outputting error finshed!
+

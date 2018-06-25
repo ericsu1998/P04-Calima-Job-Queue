@@ -1,0 +1,128 @@
+import sys
+import re
+import numpy as np
+import torch
+from torch.autograd import Variable
+from sklearn.model_selection import train_test_split
+
+from preprocessing import preprocess, hasMissingValues, getMappings, toSparseTensor
+from misc import TimeTracker, save, load
+
+#Pytorch Neural Network for regression
+
+def timeStr2Time(timeStr):
+    #Input: Time, in "[DD-[HH:]]MM:SS]" format
+    #Output: Time in hours #TODO: convert to mins
+    timeStr = re.sub("\+", "00", timeStr)
+    daysHMS = timeStr.split("-")
+    if (len(daysHMS) == 2):
+        days = int(daysHMS[0])
+        HMS = daysHMS[1]
+    else:
+        days = 0
+        HMS = daysHMS[0]
+    (hours, minutes, seconds) = list(map(int, HMS.split(":")))
+    hrsPerDay = 24
+    minsPerHr = 60.0
+    secsPerHr = 60.0*60.0
+    timeHrs = days*hrsPerDay + hours + minutes/minsPerHr + seconds/secsPerHr
+    return timeHrs
+
+def trainNN(X, Y, nHidden = 100, lRate = 1e-6, nEpochs=500):
+    #Train NN on data using SGD
+
+    error = []
+    #N is batch size: D_in is input dimension,
+    #H is hidden dimension, D_out is output dimension
+    dims = list(X.size())
+    N, D_in = dims[0], dims[1]
+    H, D_out = nHidden, 1
+
+    X = Variable(X)
+    Y = Variable(Y, requires_grad=False)
+
+    model = torch.nn.Sequential(
+        torch.nn.Linear(D_in, H),
+        torch.nn.ReLU(),
+        torch.nn.Linear(H, D_out),
+    )
+    lossFn = torch.nn.MSELoss()
+
+    optimizer = torch.optim.Adam(model.parameters(), lr=lRate)
+    for t in range(nEpochs):
+        yPred = model(X)
+
+        loss = lossFn(yPred, Y)
+
+        print(t, loss.data[0])
+        error.append([t, loss.data[0]])
+
+        model.zero_grad()
+
+        loss.backward()
+
+        for param in model.parameters():
+            param.data -= learningRate * param.grad.data
+
+    #outputTrainError() #TODO: implement
+    return model.parameters() #Weights of NN
+
+#####################
+
+if __name__ == "__main__":
+    logFile = sys.argv[1]
+    timeTracker = TimeTracker()
+
+    """
+    #Get features/labels
+    timeTracker.startBlock("Getting features/labels")
+
+    same = lambda x: x
+    timeElapsedStr2Time = [same, same, timeStr2Time]
+    features, labels = preprocess(logFile, sep="|", header=True,
+                                  featuresMapFns=timeElapsedStr2Time,
+                                  labelMapFn=timeStr2Time)
+
+    mappings = getMappings(features, nCat=2)
+
+    #Save objects
+    timeTracker.changeBlock("Saving data")
+    save(features, "savedObjs/features_6_22.pickle")
+    save(labels, "savedObjs/labels_6_22.pickle")
+    save(mappings, "savedObjs/mappings_6_22.pickle")
+    timeTracker.endBlock()
+    """
+
+    #Load objects
+    timeTracker.startBlock("Loading data")
+    features = load("savedObjs/features_6_22.pickle")
+    labels = load("savedObjs/labels_6_22.pickle")
+    mappings = load("savedObjs/mappings_6_22.pickle")
+
+    #Split to train/test
+    timeTracker.changeBlock("Splitting to train/test")
+    trainFeatures, testFeatures, trainLabels, testLabels = train_test_split(
+        features, labels, test_size=0.2)
+
+    #Convert to Tensor
+    timeTracker.changeBlock("Converting to Tensor")
+    trainFeaturesTensor = toSparseTensor(trainFeatures, mappings)
+    testFeaturesTensor = toSparseTensor(testFeatures, mappings)
+
+    trainLabelsTensor = torch.Tensor(trainLabels)
+    testLabelsTensor = torch.Tensor(testLabels)
+
+    #TODO: Everything below
+    #Train model on trainingData
+    timeTracker.changeBlock("Training model")
+    model = trainNN(trainFeatures, trainLabels)
+
+    timeTracker.endBlock()
+
+    """
+    #Test model on testing data
+    testPredict = predict(model, featuresTest)
+
+    #Evaluate model
+    errorRMSE = error(testPredict, testLabels)
+    """
